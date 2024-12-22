@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>German Noun Quiz</title>
+</head>
+<body>
+    <!-- Back to Main Menu Button -->
+    <button id="backToMain" class="back-button">Back to Main Menu</button>
+
+    <div class="container">
+        <h1>German Noun Quiz</h1>
+        <label for="wordCount">Enter number of words:</label>
+        <input type="number" id="wordCount" min="1" max="10">
+        <button id="startButton">Start</button>
+
+        <div id="quizSection" class="hidden">
+            <h2 id="wordDisplay"></h2>
+            <div id="options"></div>
+        </div>
+
+        <div id="resultSection" class="hidden">
+            <h2>Your Score: <span id="finalScore"></span></h2>
+            <h3>Results Log:</h3>
+            <ul id="resultsLog"></ul>
+        </div>
+    </div>
+
+    <!-- Link to the German Noun Game JavaScript -->
+    <script src="germanNounGame.js"></script>
+
+    <!-- Back Button Functionality -->
+    <script>
+        document.getElementById('backToMain').onclick = function() {
+            window.location.href = 'index.html'; // Link back to the main menu
+        };
+    </script>
+</body>
+</html>
