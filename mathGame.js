@@ -208,6 +208,6 @@ function endGame() {
     document.getElementById('playAgain').addEventListener('click', playAgain);
 }
 
-// Add this line at the end of your existing code
+// Add this line at the end of your existing code t
 document.getElementById('playAgain').addEventListener('click', playAgain);
 
