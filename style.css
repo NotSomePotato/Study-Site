@@ -72,6 +72,7 @@ input[type="number"] {
     margin-top: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    text-align: center;
 }
 
 
@@ -111,3 +112,10 @@ input[type="number"] {
 }
 
 
+.question-log {
+    margin-top: 20px;
+}
+
+.log-item {
+    margin-bottom: 15px;
+}
