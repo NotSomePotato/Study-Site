@@ -4,6 +4,15 @@ let currentWordIndex = 0;
 let resultsLog = [];
 let correctWord = null;
 let dictionary = [];
+let wordCountSection = document.getElementById('wordCountSection');
+let quizSection = document.getElementById('quizSection');
+let resultSection = document.getElementById('resultSection');
+let wordCountInput = document.getElementById('wordCountInput');
+wordCountInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        startQuiz();
+    }
+});
 
 // Fetch the dictionary from the NounList.json file
 fetch('./NounList.json')
@@ -22,7 +31,7 @@ fetch('./NounList.json')
 document.getElementById('startButton').addEventListener('click', startQuiz);
 
 function startQuiz() {
-    const wordCount = parseInt(document.getElementById('wordCount').value);
+    const wordCount = parseInt(wordCountInput.value);
 
     if (isNaN(wordCount) || wordCount <= 0) {
         alert("Please enter a valid number of words.");
@@ -33,9 +42,10 @@ function startQuiz() {
     totalWords = wordCount;
     currentWordIndex = 0;
     resultsLog = [];
-
-    document.getElementById('quizSection').classList.remove('hidden');
-    document.getElementById('resultSection').classList.add('hidden');
+    wordCountSection.style.display = 'none';
+    quizSection.style.display = 'block';
+    // document.getElementById('quizSection').classList.remove('hidden');
+    // document.getElementById('resultSection').classList.add('hidden');
 
     showNextWord();
 }
@@ -164,8 +174,6 @@ function checkGender(selectedGender) {
 }
 
 function showResults() {
-    document.getElementById('quizSection').classList.add('hidden');
- 
     document.getElementById('finalScore').innerText = `${score} out of ${totalWords}`;
  
     const resultsLogUl = document.getElementById('resultsLog');
@@ -192,7 +200,9 @@ function showResults() {
  
     const optionsDiv = document.getElementById("options");
     optionsDiv.innerHTML = ""; // Clear all question-related buttons
- 
-    document.getElementById('resultSection').classList.remove('hidden');
+    quizSection.style.display = 'none';
+    resultSection.style.display = 'block';
+    wordCountSection.style.display = 'block';
+    // resultSection.classList.remove('hidden');
  }
  
