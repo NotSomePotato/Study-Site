@@ -45,5 +45,15 @@
     { "word": "Donnerstag", "meaning": "Thursday", "gender": "Masculine" },
     { "word": "Freitag", "meaning": "Friday", "gender": "Masculine" },
     { "word": "Samstag", "meaning": "Saturday", "gender": "Masculine" },
-    { "word": "Sonntag", "meaning": "Sunday", "gender": "Masculine" }
+    { "word": "Sonntag", "meaning": "Sunday", "gender": "Masculine" },
+    { "word": "Straße", "meaning": "Street", "gender": "Feminine" },
+    { "word": "Gespräch", "meaning": "Conversation, Call", "gender": "Neutral" },
+    { "word": "Beispiel", "meaning": "Example", "gender": "Neutral" },
+    { "word": "Ausbildung", "meaning": "Education, Training", "gender": "Feminine" },
+    { "word": "Freizeit", "meaning": "Free time", "gender": "Feminine" },
+    { "word": "Kursspaziergang", "meaning": "Course walk", "gender": "Masculine" },
+    { "word": "Ausstellung", "meaning": "Exhibition, Display", "gender": "Feminine" },
+    { "word": "Wochentag", "meaning": "Days of the week", "gender": "Masculine" },
+    { "word": "Lust", "meaning": "Desire, Appetite, Joy", "gender": "Feminine" },
+    { "word": "Lieblingsort", "meaning": "Favorite place", "gender": "Masculine" }
 ]
