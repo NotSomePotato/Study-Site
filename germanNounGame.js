@@ -4,6 +4,7 @@ let currentWordIndex = 0;
 let resultsLog = [];
 let correctWord = null;
 let dictionary = [];
+let unusedWords = [];
 let wordCountSection = document.getElementById('wordCountSection');
 let quizSection = document.getElementById('quizSection');
 let resultSection = document.getElementById('resultSection');
@@ -38,17 +39,22 @@ function startQuiz() {
         return;
     }
 
+    if (wordCount > dictionary.length) {
+        alert(`There are only ${dictionary.length} words available. Please enter a smaller number.`);
+        return;
+    }
+
     score = 0;
     totalWords = wordCount;
     currentWordIndex = 0;
     resultsLog = [];
+    unusedWords = [...dictionary]; // Create a copy of the dictionary
     wordCountSection.style.display = 'none';
     quizSection.style.display = 'block';
-    // document.getElementById('quizSection').classList.remove('hidden');
-    // document.getElementById('resultSection').classList.add('hidden');
 
     showNextWord();
 }
+
 
 function showNextWord() {
     if (currentWordIndex >= totalWords) {
@@ -56,8 +62,9 @@ function showNextWord() {
         return;
     }
 
-    const randomIndex = Math.floor(Math.random() * dictionary.length);
-    correctWord = dictionary[randomIndex];
+    const randomIndex = Math.floor(Math.random() * unusedWords.length);
+    correctWord = unusedWords[randomIndex];
+    unusedWords.splice(randomIndex, 1); // Remove the used word from the array
 
     const options = generateOptions(correctWord.meaning);
 
@@ -78,6 +85,7 @@ function showNextWord() {
     currentWordIndex++;
 }
 
+
 function generateOptions(correctMeaning) {
     const options = [];
 
@@ -89,7 +97,8 @@ function generateOptions(correctMeaning) {
         const randomIndex = Math.floor(Math.random() * dictionary.length);
         const randomMeaning = dictionary[randomIndex].meaning;
 
-        if (!options.some(option => option.meaning === randomMeaning)) {
+        if (!options.some(option => option.meaning === randomMeaning) && 
+            unusedWords.some(word => word.meaning === randomMeaning)) {
             options.push({ meaning: randomMeaning, isCorrect: false });
         }
     }
@@ -97,6 +106,7 @@ function generateOptions(correctMeaning) {
     // Shuffle options
     return options.sort(() => Math.random() - 0.5);
 }
+
 
 function checkMeaning(isCorrect) {
     const optionsDiv = document.getElementById('options');
