@@ -135,7 +135,7 @@ function showNextWord() {
         const button = document.createElement('button');
         button.innerText = option.meaning;
         button.classList.add("meaning-button");
-        button.addEventListener('click', () => checkMeaning(option.isCorrect));
+        button.addEventListener('click', () => checkMeaning(option));
         optionsDiv.appendChild(button);
     });
 
@@ -165,17 +165,17 @@ function generateOptions(correctMeaning) {
 }
 
 
-function checkMeaning(isCorrect) {
+function checkMeaning(option) {
     const optionsDiv = document.getElementById('options');
 
-    if (isCorrect) {
+    if (option.isCorrect) {
         document.getElementById('wordDisplay').innerHTML += ` <span class='correct'>Correct Meaning</span>`;
         showGenderButtons(); // Show gender buttons only if the meaning is correct
     } else {
         document.getElementById('wordDisplay').innerHTML += ` <span class='wrong'>Wrong Meaning</span>`;
         resultsLog.push({
             word: correctWord.word,
-            meaningGuess: 'Wrong',
+            meaningGuess: `Wrong - ${option.meaning}`,
             genderGuess: 'N/A',
             actualMeaning: correctWord.meaning,
             actualGender: correctWord.gender,
