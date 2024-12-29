@@ -203,42 +203,73 @@ function showGenderButtons() {
     });
 }
 
+function showPluralAdditionButtons() {
+    const optionsDiv = document.getElementById('options');
+    optionsDiv.innerHTML = '';
+
+    const pluralAdditions = ['-(e)n', '-s', '-e/-◌̈e', '-er/-◌̈er', '-/◌̈-', 'other'];
+    pluralAdditions.forEach((addition) => {
+        const button = document.createElement('button');
+        button.innerText = addition;
+        button.classList.add('plural-button');
+        button.addEventListener('click', () => checkPluralAddition(addition));
+        optionsDiv.appendChild(button);
+    });
+}
 function checkGender(selectedGender) {
     let pointsAwarded;
 
     if (selectedGender === correctWord.gender) {
         document.getElementById('wordDisplay').innerHTML += ` <span class='correct'>Correct Gender</span>`;
-        pointsAwarded = 1; // Full point for both correct meaning and gender
-        score++;
-
+        pointsAwarded = 0.75; // Adjust points for correct gender
+        score += 0.75;
         resultsLog.push({
             word: correctWord.word,
             meaningGuess: 'Correct',
             genderGuess: 'Correct',
+            pluralGuess: '',
             actualMeaning: correctWord.meaning,
             actualGender: correctWord.gender,
+            actualPlural: '',
             scoreAwarded: pointsAwarded,
         });
-        
     } else {
         document.getElementById('wordDisplay').innerHTML += ` <span class='wrong'>Wrong Gender</span>`;
-        pointsAwarded = 0.5; // Half point for correct meaning but wrong gender
+        pointsAwarded = 0.5; // Adjust points for wrong gender
         score += 0.5;
-
         resultsLog.push({
             word: correctWord.word,
             meaningGuess: 'Correct',
             genderGuess: `Wrong - ${selectedGender}`,
+            pluralGuess: '',
             actualMeaning: correctWord.meaning,
             actualGender: correctWord.gender,
+            actualPlural: '',
             scoreAwarded: pointsAwarded,
         });
-        
-     }
-     
-     // Proceed to next word after a short delay
-     setTimeout(showNextWord, 1000);
+    }
+
+    setTimeout(showPluralAdditionButtons, 250);
 }
+
+function checkPluralAddition(selectedAddition) {
+    if (selectedAddition === correctWord.pluralAdd) {
+        document.getElementById('wordDisplay').innerHTML += ` <span class='correct'>Correct Plural Addition</span>`;
+        score += 0.25;
+        resultsLog[resultsLog.length - 1].scoreAwarded += 0.25;
+        resultsLog[resultsLog.length - 1].pluralGuess = 'Correct';
+    } else {
+        document.getElementById('wordDisplay').innerHTML += ` <span class='wrong'>Wrong Plural Addition</span>`;
+        resultsLog[resultsLog.length - 1].pluralGuess = `Wrong - ${selectedAddition}`;
+    }
+    resultsLog[resultsLog.length - 1].actualPlural = correctWord.plural;
+    // Display the correct plural form
+    document.getElementById('wordDisplay').innerHTML += `<br>Correct plural: ${correctWord.plural}`;
+
+    // Proceed to next word after a short delay
+    setTimeout(showNextWord, 2000);
+}
+
 
 function showResults() {
     document.getElementById('finalScore').innerText = `${score} out of ${totalWords}`;
@@ -261,6 +292,11 @@ function showResults() {
  
         // Set inner HTML with colored word
         li.innerHTML = `<span class="${scoreClass}">${entry.word}</span>: Meaning - ${entry.actualMeaning} (${entry.meaningGuess}), Gender - ${entry.actualGender} (${entry.genderGuess}), Score Awarded - ${entry.scoreAwarded}`;
+        li.innerHTML = `<span class="${scoreClass}">${entry.word}</span>: 
+            Meaning - ${entry.actualMeaning} (${entry.meaningGuess}), 
+            Gender - ${entry.actualGender} (${entry.genderGuess}), 
+            Plural - ${entry.actualPlural} (${entry.pluralGuess}), 
+            Score Awarded - ${entry.scoreAwarded}`;
         
         resultsLogUl.appendChild(li);
     });
